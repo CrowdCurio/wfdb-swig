@@ -1,0 +1,37 @@
+# file: Makefile.w32
+#
+# Makefile for building the example C# programs with
+# Microsoft's .NET tools.
+
+# Path to .NET Framework, where the C# compiler is located
+netdir=/cygdrive/c/WINNT/Microsoft.NET/Framework/v1.1.4322
+
+# C# Compiler
+CSC=$(netdir)/csc.exe
+
+# location of wfdb-sharp.dll
+libdir=../src
+
+example_sources=\
+	example1.cs \
+	example2.cs \
+	example3.cs \
+	example4.cs \
+	example5.cs \
+	example6.cs \
+	example7.cs \
+	example9.cs \
+	example10.cs \
+	rdsamp.cs \
+	rdann.cs
+
+
+example_programs = $(example_sources:.cs=.exe)
+
+all: $(example_programs)
+
+%.exe : %.cs
+	$(CSC) /r:$(libdir)/wfdb-sharp.dll $<
+
+clean:
+	rm $(example_programs)

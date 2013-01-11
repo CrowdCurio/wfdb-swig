@@ -1,0 +1,46 @@
+file: INSTALL		G. Moody		22 February 2006
+			Last revised:		  10 March 2006
+General instructions for installing WFDB wrappers
+
+If you have not already done so, install the WFDB library (see
+http://physionet.org/physiotools/wfdb.shtml) and the SWIG package
+(see http://www.swig.org) for your platform.
+
+Note: under Mac OS X, compile SWIG from sources (from the SWIG web site,
+above) to get a scriptable SWIG;  the precompiled Mac OS X SWIG package
+available from the SWIG web site is a GUI-only version that cannot be run from
+the automated installation scripts included here.
+
+Although executable programs written in some of the target languages are
+portable across platforms, the WFDB wrappers themselves are not!  Each
+wrapper relies on a native "glue" layer, on the interpreter or compiler for
+the target language, and on the WFDB library itself.  Therefore, you must
+always install versions of the WFDB wrappers and the WFDB library that have
+been built for your CPU type, operating system, and interpreter or compiler.
+Since it is not practical to distribute precompiled wrappers for all possible
+combinations of platforms and target interpreters/compilers, in practice this
+means that you must compile the wrappers yourself, following the instructions
+here.
+
+To create WFDB wrappers for all tested languages, type:
+	make WFDB_HOME=/opt/wfdb
+
+To install WFDB wrappers for all tested languages, type:
+	make install
+On most platforms you will need root (administrator) privileges to complete
+this step.
+
+To check the installation, type:
+	make check
+This test verifies that the wrappers have been successfully installed,
+and provides a simple test of basic functions.
+
+If you prefer, you can build wrappers for each language separately.  Please see
+the documentation in each subdirectory for specific instructions:
+
+	wfdb-csharp/INSTALL  (for C# and other .NET languages)
+	wfdb-java/INSTALL
+	wfdb-python/INSTALL
+
+See README in this directory for additional information about the WFDB
+wrappers.

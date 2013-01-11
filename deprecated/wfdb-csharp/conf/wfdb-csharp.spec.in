@@ -1,0 +1,45 @@
+Summary: .NET language bindings for WFDB
+Name: wfdb-csharp
+Version: @VERSION@
+Release: 1
+License: GPL
+Group:	Development/Libraries
+URL: http://www.physionet.org/
+Source0: wfdb-csharp.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRequires:  wfdb-devel >= 10.4.0
+BuildRequires:	mono-core >= 1.0.4
+Requires:	wfdb
+
+%description
+	A C sharp binding for the WFDB API.
+
+%prep
+%setup -q -n wfdb-csharp
+
+%build
+./configure --disable-static --prefix=$RPM_BUILD_ROOT/usr
+make 
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%files
+%defattr(-,root,root,-)
+%doc
+/usr/lib/libwfdbcsharpglue.*
+/usr/lib/mono/wfdb-csharp/wfdb-csharp.dll
+/usr/lib/mono/gac/wfdb-csharp/*
+
+%changelog
+* Thu Apr 06 2006 George B Moody <george@mit.edu> - wfdb-csharp-1
+- Renamed package.
+
+* Tue Mar 22 2005 Isaac C Henry <ihenry@physionet.org> - wfdb-sharp-1
+- Initial build.
+

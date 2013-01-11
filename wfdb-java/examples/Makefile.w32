@@ -1,0 +1,27 @@
+# file: Makefile.w32
+#
+# Makefile for building the example Java programs with Sun's
+# JDK under Windows and the Cygwin environment
+
+# Location of the Java compiler
+JAVAC=/cygdrive/c/Program\ Files/Java/jdk1.5.0_02/bin/javac.exe
+
+# Location of the wfdb-java.dll
+LIBDIR=../src
+
+CLASSPATH=`cygpath -wp $(LIBDIR)/wfdb.jar:.`
+
+SOURCES=example1.java example2.java example3.java example4.java example5.java \
+	example6.java example7.java example9.java example10.java \
+	psamples.java rdsamp.java rdann.java
+
+PROGRAMS = $(SOURCES:.java=.class)
+
+all:	 $(PROGRAMS)
+
+%.class : %.java
+	$(JAVAC) -cp $(CLASSPATH) $<
+
+clean:
+	rm -f $(PROGRAMS) *~
+

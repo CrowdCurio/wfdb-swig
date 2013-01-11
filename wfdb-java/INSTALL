@@ -1,0 +1,80 @@
+file: INSTALL		I. Henry and G. Moody		August 2005
+			Last revised:		      12 March 2006
+Installation notes for WFDB Java wrappers
+
+If you have not already done so, install the WFDB library, SWIG, and a Java
+development kit that supports the Java Native Interface (JNI).  The Sun
+Java SDK is recommended.
+
+	WFDB (http://physionet.org/physiotools/wfdb.shtml)
+	SWIG (http://www.swig.org/)
+	Java development kit (http://java.sun.com/)
+
+See 'INSTALL' in the parent of this directory for further information.
+
+To make the wfdb-java module, type:
+	make
+This creates a 'build' directory, copies the contents of the 'conf' directory
+there, generates source files for the Java wrappers using SWIG, generates
+build/Makefile to manage the build process, and uses it to compile the wrapper
+source code into a Java class archive (wfdb.jar) and a shared wrapper library
+(libwfdbjava.*).
+
+To install the wfdb-java module, type:
+	make install
+On most platforms you will need root (administrator) privileges to complete
+this step.  This installs wfdb.jar and libwfdbjava in their expected locations
+(/usr/share/java/ and /usr/lib/ respectively).
+
+To test the installation, type:
+	make check
+This command compiles all of the programs in the 'examples' directory, and
+runs a Java version of the trivial example program from chapter 1 of the WFDB
+Programmer's Guide:
+	examples/jw examples/psamples
+and compares its output with the expected output (in ../examples/psamples.out).
+The output of 'make check' is either 'Passed' or 'Failed'.  If you run
+'examples/jw examples/psamples' directly, its output should be:
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        1000    1008
+        997     1008
+
+The ../examples directory also contains translations into Java of the other
+examples from the WFDB Programmer's Guide.
+
+To build a wfdb-java RPM (GNU/Linux only), type:
+	make rpm 
+
+Building wrappers with gcc4
+
+gcc4 seems to have a problem with over-optimizing the wrappers if the "-O2"
+flag is used.  Unfortunately, autoconf uses "-O2" by default, resulting in
+wrappers that will crash in most cases.  In order to build a less optimized and
+functional wrapper library, the 'CFLAGS' variable must be overridden when
+running 'configure' (see Makefile to see how this is done).
+
+Compiling Java code with the wrappers
+
+The wrappers can be used to build standalone programs or .class files.  The
+difference is that standalone programs contain opcodes that your CPU can
+execute directly, and .class files contain Java bytecodes that must be
+interpreted at run time by a Java virtual machine (JVM).  See examples/Makefile
+to see how each type of compilation can be done.
+
+Notes on MS Windows 
+
+Windows developers should understand that there are two development paths for
+WFDB on Windows (Cygwin and "pure win32" builds), but that only "pure win32"
+can be used with the Java wrappers. Cygwin builds of WFDB link against
+cygwin1.dll, an alternative to Microsoft's MSVCRT*.dll C runtime library. These
+two libraries are mutually exclusive; binaries must be linked to one or the
+other only.  Since Sun's JRE links against MSVCRT*.dll, the WFDB JNI "glue" dll
+and the WFDB dll must also link against MSVCRT*.dll.
+

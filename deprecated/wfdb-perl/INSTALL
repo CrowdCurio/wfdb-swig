@@ -1,0 +1,44 @@
+file: INSTALL		G. Moody	10 March 2006
+
+Installation notes for WFDB Perl wrappers
+
+If you have not already done so, install the WFDB library, SWIG, and Perl 5:
+
+	WFDB (http://physionet.org/physiotools/wfdb.shtml)
+	SWIG (http://www.swig.org/)
+	Perl 5 (http://www.perl.org/)
+
+See 'INSTALL' in the parent of this directory for further information.
+
+To make the wfdb-perl module, type:
+	make
+If 'Makefile' and 'wfdb_perl_wrap.c' do not exist already, this command
+will create them using 'perl Makefile.PL' and SWIG before building the module.
+
+To install the wfdb-perl module, type:
+	make install
+This command installs the module (wfdb.so) and its perl interface (wfdb.pm).
+On most platforms you will need root (administrator) privileges to complete
+this step.
+
+To test the installation, type:
+	make check
+This command runs a Perl version of the trivial example program from chapter
+1 of the WFDB Programmer's Guide:
+	perl ../examples/psamples.pl
+and compares its output with the expected output (in ../examples/psamples.out).
+The output of 'make check' is either 'Passed' or 'Failed'.  If you run
+psamples.pl directly, its output should be:
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        1000    1008
+        997     1008
+
+The ../examples directory also contains translations into Perl 5 of the other
+examples from the WFDB Programmer's Guide.

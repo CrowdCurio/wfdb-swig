@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# file: jw		G. Moody	11 March 2006
+#
+# Run a compiled Java application that uses the WFDB Java wrappers
+
+if [ $# -lt 1 ]
+then
+    echo "usage: $0 app [ app-options ... ]"
+    exit
+fi
+
+# Strip out any path component.
+CP=`dirname $1`
+
+# Strip the '.class' suffix if present.
+APP=`basename $1 .class`
+
+# Discard $1, retain any other arguments as $*.
+shift
+
+exec java -Djava.library.path=/usr/lib -cp /usr/share/java/wfdb.jar:$CP $APP $*

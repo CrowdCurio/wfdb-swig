@@ -1,0 +1,105 @@
+file: INSTALL		I. Henry and G. Moody		 August 2005
+			Last revised:			6 April 2006
+Installation notes for WFDB C# wrappers
+
+If you have not already done so, install the WFDB library, SWIG, and a C#
+compiler such as Mono.
+
+	WFDB (http://physionet.org/physiotools/wfdb.shtml)
+	SWIG (http://www.swig.org/)
+	Mono (http://www.mono-project.com/)
+
+See 'INSTALL' in the parent of this directory for further information about
+WFDB and SWIG, and the notes below for platform-specific information about C#.
+
+To make the wfdb-csharp "glue" library and the wfdb-csharp "assembly", type:
+	make
+This creates a 'build' directory, copies the contents of the 'conf' directory
+there, generates source files for the C# wrappers using SWIG, generates
+build/Makefile to manage the build process, and uses it to compile the wrapper
+source code into a C# assembly (wfdb-csharp.dll) and a "glue" library
+(libwfdbcsharpglue.*) that interfaces the WFDB library with the .NET virtual
+machine.
+
+To install the wfdb-csharp module, type:
+	make install
+On most platforms you will need root (administrator) privileges to complete
+this step.  This installs wfdb-csharp.dll and libwfdbcsharpglue.* in their
+expected locations (by default, /usr/lib/mono/ and /usr/lib/ respectively).
+
+To test the installation, type:
+	make check
+This command compiles all of the programs in the 'examples' directory, and
+runs a C# version of the trivial example program from chapter 1 of the WFDB
+Programmer's Guide:
+	examples/csw examples/psamples
+and compares its output with the expected output (in ../examples/psamples.out).
+The output of 'make check' is either 'Passed' or 'Failed'.  If you run
+'examples/csw examples/psamples' directly, its output should be:
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        1000    1008
+        997     1008
+
+The ../examples directory also contains translations into C# of the other
+examples from the WFDB Programmer's Guide.
+
+
+Notes on Fedora/Redhat Linux
+
+Mono packages for Fedora Core 3 and 4 are available from http://nrpms.net/.
+The nrpms yum repositories were not working as of April 2006, but the necessary
+RPMs (libgc, mono-core, and mono-devel) were still available at that time.
+
+Fedora Core 5 and later versions include Mono packages contributed by the nrpms
+team.  To check if the Mono SDK is installed already, type
+	rpm -q mono-devel
+Install it if necessary by typing (as root)
+	yum install mono-devel
+
+As of April 2006, the Mono project's FAQ states:
+
+    Mono will run on FC5 as long as you turn off SELinux. Otherwise, some
+    applications may experience errors.
+
+To build a wfdb-csharp RPM, type (in this directory):
+	make rpm 
+
+
+Notes on MS Windows 
+
+The .NET wrappers are expected to be of particular interest to Windows
+developers.  Although there are two types of WFDB binaries that can be
+built and used on Windows, only one of them is compatible with the .NET
+virtual machine:
+
+* POSIX
+  This version is recommended for those wishing to use the WFDB applications,
+  (particularly WAVE, which can only be built in this way).  If the WFDB code
+  is compiled in the default way using Cygwin gcc, it links at run time to
+  cygwin1.dll, which provides a standard POSIX-conformant run-time environment
+  on Windows.
+
+* Native Windows
+  This version is required by code that extends the .NET virtual machine (VM).
+  Such code can be built using Cygwin gcc with the -mno-cygwin option, or
+  by using MinGW gcc, and it links at run time to Microsoft's MSVCRT*.dll.
+
+The "glue" DLL extends the .NET VM, providing an interface between the
+WFDB library itself and the .NET VM.  Since cygwin1.dll and MSVCRT*.dll are
+mutually incompatible within a single process, the extension requires native
+Windows versions of both the "glue" DLL and the WFDB library DLL.
+
+There is no problem in having both POSIX and native Windows versions of the
+WFDB library in use at the same time, provided that the respective DLLs are
+kept in separate directories.  We recommend keeping the POSIX versions in
+the c:\cygwin directory tree, and the native Windows versions in the c:\opt
+tree, as suggested in the instructions for installing the WFDB Software Package
+on Windows at
+	http://physionet.org/physiotools/wfdb-windows-quick-start.shtml

@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# file: csw		G. Moody	6 April 2006
+#
+# Run a compiled C# application that uses the WFDB C# wrappers
+
+if [ $# -lt 1 ]
+then
+    echo "usage: $0 app [ app-options ... ]"
+    exit
+fi
+
+# Make sure that libwfdb and libwfdbcsharpglue are in the dynamic library
+# load path.  By default, these libraries are installed in /usr/lib, which
+# does not need to be listed explicitly in LD_LIBRARY_PATH (or, on Mac OS X,
+# DYLD_LIBRARY_PATH).  If you installed the libraries in another location,
+# uncomment the next line, replacing /usr/local/lib as appropriate.
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+# Make sure that the wfdb-csharp "assembly" is where mono can find it.
+# By default, it will be in /usr/lib/mono, but if it is somewhere else,
+# set MONO_PATH to point to that location, following the example below.
+# export MONO_PATH=/usr/local/lib/mono
+
+# Make sure that the application name includes ".exe".
+case $1 in
+    *.exe) APP=$1 ;;
+    *)     APP=$1.exe ;;
+esac
+
+# Discard the application name, pass other command-line arguments to the app.
+shift
+
+# Run the application.
+exec mono $APP $*

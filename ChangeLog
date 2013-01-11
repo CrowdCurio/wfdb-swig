@@ -1,0 +1,9 @@
+2006-04-06  George B Moody <george@mit.edu>
+
+	Release 10.4.1
+
+	* includes Perl, Python, Java, C# wrappers
+	* redundant files removed
+	* builds cleanly on FC4 and FC5 using top-level Makefile
+
+	

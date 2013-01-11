@@ -1,0 +1,41 @@
+file: INSTALL		G. Moody	10 March 2006
+
+Installation notes for WFDB Python wrappers
+
+If you have not already done so, install the WFDB library, SWIG, and Python:
+
+	WFDB (http://physionet.org/physiotools/wfdb.shtml)
+	SWIG (http://www.swig.org/)
+	Python (http://www.python.org/)
+
+See 'INSTALL' in the parent of this directory for further information.
+
+To make the wfdb-python module, type:
+	make
+If 'wfdb_python_wrap.c' does not exist already, this command will create it
+using SWIG before building the module.
+
+To install the wfdb-python module, type:
+	make install
+This command installs the module (_wfdb.so) and its python interface (wfdb.py).
+On most platforms you will need root (administrator) privileges to complete
+this step.
+
+To test the installation, type:
+	make check
+This command runs a Python version of the trivial example program from chapter
+1 of the WFDB Programmer's Guide:
+	python ../examples/psamples.py
+and compares its output with the expected output (in ../examples/psamples.out).
+The output of 'make check' is either 'Passed' or 'Failed'.  If you run
+psamples.py directly, its output should be:
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        995     1011
+        1000    1008
+        997     1008

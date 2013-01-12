@@ -10,12 +10,12 @@ if WFDB_HOME is None:
 
 module1 = Extension("_wfdb",
                     libraries = ["wfdb"],
-		    library_dirs = [WFDB_HOME+"/lib"],
+		    library_dirs = [WFDB_HOME+"/lib",WFDB_HOME+"/lib64"],
                     include_dirs = [WFDB_HOME+"/include"] + get_numpy_include_dirs(),
                     sources = ['wfdb_python_wrap.c'])
 
 setup (name = 'wfdb',
-       version = '10.4',
+       version = '10.5',
        description = 'WFDB wrappers',
        author='I. Henry and G. Moody',
        author_email='wfdb-swig@physionet.org',

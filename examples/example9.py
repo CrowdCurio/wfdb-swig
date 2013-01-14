@@ -53,10 +53,10 @@ def main(argv):
     nsig = wfdb.isigopen(argv[2], None, 0)
     if nsig < 1: sys.exit(2)
     s = wfdb.WFDB_SiginfoArray(nsig)
-    v = wfdb.WFDB_SampleArray(nsig)
-    vb = wfdb.WFDB_SampleArray(nsig)
+    v = wfdb.intArray(nsig)
+    vb = wfdb.intArray(nsig)
     sum = [None] * nsig
-    if wfdb.wfdbinit(argv[2], a, 1, s.cast(), nsig) != nsig: sys.exit(3)
+    if wfdb.wfdbinit(argv[2], a, 1, s, nsig) != nsig: sys.exit(3)
     hwindow = wfdb.strtim(".05")
     window = 2*hwindow + 1
     for i in range(nsig):
@@ -81,9 +81,9 @@ def main(argv):
     while 1:        
         if annot.anntyp == btype:
             wfdb.isigsettime(annot.time - hwindow - 1)
-            wfdb.getvec(vb.cast())
+            wfdb.getvec(vb)
             j=0
-            while j < window and wfdb.getvec(v.cast()) > 0:
+            while j < window and wfdb.getvec(v) > 0:
                 for i in range(nsig):
                     sum[i][j] += v[i] - vb[i]
                 j += 1

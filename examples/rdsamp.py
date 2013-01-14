@@ -52,10 +52,10 @@ def main(argv):
     wfdb.isigopen(record, siarray, nsig)
 
     n = 0
-    v = wfdb.WFDB_SampleArray(nsig)
+    v = wfdb.intArray(nsig)
 
     # Loop over each sample and print the signal values.
-    while wfdb.getvec(v.cast()) > 0:
+    while wfdb.getvec(v) > 0:
         print n,
         for i in range(0,nsig):
             print v[i],

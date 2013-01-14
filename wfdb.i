@@ -86,7 +86,8 @@ typedef struct {
 
 %include carrays.i
 
-%array_class(WFDB_Sample,     WFDB_SampleArray);
+%array_class(int, intArray);
+%array_class(WFDB_Sample,    WFDB_SampleArray);
 %array_class(WFDB_Siginfo,    WFDB_SiginfoArray);
 %array_class(WFDB_Anninfo,    WFDB_AnninfoArray);
 %array_class(WFDB_Annotation, WFDB_AnnotationArray);

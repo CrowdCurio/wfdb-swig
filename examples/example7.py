@@ -11,14 +11,13 @@
 # and third arguments are the start time and the duration of the
 # segment to be filtered, and the rest of the arguments are
 # finite-impulse-response (FIR) filter coefficients. For example, if
-# this program were compiled into an executable program called
-# ‘filter’, it might be used by
+# this program were named 'filter', it might be used by
 #	
 #  filter 100 5:0 20 .2 .2 .2 .2 .2
 #
 # which would apply a five-point moving average (rectangular window)
-# filter to 20 seconds of record ‘100’, beginning 5 minutes into the
-# record. The output of the program is readable as record ‘out’, for
+# filter to 20 seconds of record '100', beginning 5 minutes into the
+# record. The output of the program is readable as record 'out', for
 # which a header file is created in the current directory.
 #
 # This is a Python translation of example7.c from the WFDB
@@ -58,7 +57,7 @@ def main(argv):
     nsig = wfdb.isigopen(argv[1], None, 0)
     if nsig < 1: sys.exit(3)
     s = wfdb.WFDB_SiginfoArray(nsig)
-    v = wfdb.WFDB_SampleArray(nsig)
+    v = wfdb.intArray(nsig)
     if wfdb.isigopen(argv[1], s, nsig) != nsig: sys.exit(3)
     if wfdb.isigsettime(wfdb.strtim(argv[2])) < 0: sys.exit(4)
     nsamp = wfdb.strtim(argv[3])
@@ -74,7 +73,7 @@ def main(argv):
             for i in range(0, nc):
                 if c[i] != 0.: vv += c[i] * wfdb.sample(j, t+i)
             v[j] = int(vv)
-        if wfdb.putvec(v.cast()) < 0: break
+        if wfdb.putvec(v) < 0: break
     wfdb.newheader("out")
     wfdb.wfdbquit()
 

@@ -7,7 +7,7 @@
 #
 # The program below inverts and differentiates the signals read by
 # getvec and writes the results with putvec. The output is readable as
-# record ‘dif’. A wide variety of simple digital filters can be
+# record 'dif'. A wide variety of simple digital filters can be
 # modelled on this example; see section Example 7: A General-Purpose
 # FIR Filter, for a more general approach
 #
@@ -43,14 +43,14 @@ def main(argv):
     nsig = wfdb.isigopen(argv[1], None, 0)
     if nsig <= 0: sys.exit(2)
     s = wfdb.WFDB_SiginfoArray(nsig)
-    vin = wfdb.WFDB_SampleArray(nsig)
-    vout = wfdb.WFDB_SampleArray(nsig)
+    vin = wfdb.intArray(nsig)
+    vout = wfdb.intArray(nsig)
     if wfdb.isigopen(argv[1], s, nsig) != nsig: sys.exit(2)
     if wfdb.osigopen("8l", s, nsig) <= 0: sys.exit(3)
-    while nsamp > 0 and wfdb.getvec(vin.cast()) > 0:
+    while nsamp > 0 and wfdb.getvec(vin) > 0:
         nsamp -= 1
         for i in range(0, nsig): vout[i] -= vin[i]
-        if wfdb.putvec(vout.cast()) < 0: break
+        if wfdb.putvec(vout) < 0: break
         for i in range(0, nsig): vout[i] = vin[i]
     wfdb.newheader("dif")
     wfdb.wfdbquit()

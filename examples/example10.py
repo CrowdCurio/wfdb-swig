@@ -8,8 +8,8 @@
 # This program reads a single ECG signal, attempts to detect QRS
 # complexes, and records their locations in an annotation file. The
 # detector algorithm is based on a Pascal program written by
-# W.A.H. Engelse and C. Zeelenberg, “A single scan algorithm for
-# QRS-detection and feature extraction”, Computers in Cardiology
+# W.A.H. Engelse and C. Zeelenberg, "A single scan algorithm for
+# QRS-detection and feature extraction", Computers in Cardiology
 # 6:37-42 (1979).
 #
 # This is a Python translation of example10.c from the WFDB
@@ -53,7 +53,7 @@ def main(argv):
     nsig = wfdb.isigopen(argv[1], None, 0)
     if nsig < 1: sys.exit(2)
     s = wfdb.WFDB_SiginfoArray(nsig)
-    v = wfdb.WFDB_SampleArray(nsig)
+    v = wfdb.intArray(nsig)
     if wfdb.wfdbinit(argv[1], a, 1, s, nsig) != nsig: sys.exit(2)
     if wfdb.sampfreq(None) < 240. or wfdb.sampfreq(None) > 260.:
 	wfdb.setifreq(250.)
@@ -65,7 +65,7 @@ def main(argv):
     s2 = wfdb.strtim("2")
     annot.subtyp = annot.chan = annot.num = 0
     annot.aux = None
-    wfdb.getvec(v.cast())
+    wfdb.getvec(v)
     t9 = t8 = t7 = t6 = t5 = t4 = t3 = t2 = t1 = v[0]
 
     while 1:
@@ -124,7 +124,7 @@ def main(argv):
         t2 = t1
         t1 = t0
         time = time + 1
-        if not wfdb.getvec(v.cast()) > 0: break
+        if not wfdb.getvec(v) > 0: break
 
     wfdb.wfdbquit()
 

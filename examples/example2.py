@@ -5,7 +5,7 @@
 #
 # Example 2: An Annotation Translator
 #
-# This program translates the ‘atr’ annotations for the record named
+# This program translates the "atr" annotations for the record named
 # in its argument into an AHA-format annotation file with the
 # annotator name ‘aha’
 #
@@ -57,7 +57,7 @@ def main(argv):
     # annopen later
 
     # First get a new Anninfo structure.
-    a = wfdb.WFDB_Anninfo()   # LINE_B
+    a = wfdb.WFDB_Anninfo()   
     # In the early version this line was:
     #   a = an[0]
     # because calling wfdb.AnninfoArray(2), previously allocated

@@ -1,12 +1,35 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
-# File: example4.py       I. Henry   March 30 2005
+# File: example4.py       I. Henry      30 March 2005
+#                         last revised: 13 January 2013
 #
 # WFDB Example 4: Generating an R-R Interval Histogram
 #
-# see http://physionet.org/physiotools/wpg/wpg_144.htm#SEC144
-# 							   
-# Copyright (C) 2005 Isaac C. Henry (ihenry@physionet.org)
+# This program reads an annotation file, determines the intervals
+# between beat annotations (assumed to be the R-R intervals), and
+# accumulates a histogram of them.
+#
+# This is a Python translation of example1.c from the WFDB 
+# Programmer's Guide.
+#
+# http://www.physionet.org/physiotools/wpg/wpg_49.htm#Example-4
+#
+# Copyright (C) 2013 Isaac C. Henry (ihenry42@gmail.org)
+#
+# This file is part of wfdb-swig.
+#
+# wfdb-swig is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wfdb-swig is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with wfdb-swig.  If not, see <http://www.gnu.org/licenses/>.
 
 import wfdb, sys
 

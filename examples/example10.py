@@ -1,10 +1,39 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
-# File: example10.py       I. Henry   March 30 2005
+# File: example10.py       I. Henry      30 March 2005
+#                          last revised: 13 January 2013
 #
-# Python translation of example10.c from the WFDB Programmer's Guide
+# Example 10: A QRS Detector
+#
+# This program reads a single ECG signal, attempts to detect QRS
+# complexes, and records their locations in an annotation file. The
+# detector algorithm is based on a Pascal program written by
+# W.A.H. Engelse and C. Zeelenberg, “A single scan algorithm for
+# QRS-detection and feature extraction”, Computers in Cardiology
+# 6:37-42 (1979).
+#
+# This is a Python translation of example10.c from the WFDB
+# Programmer's Guide
 # 						   
-# Copyright (C) 2005 Isaac C. Henry (ihenry@physionet.org)
+# http://www.physionet.org/physiotools/wpg/wpg_55.htm#Example-10
+#
+# Copyright (C) 2013 Isaac C. Henry (ihenry42@gmail.org)
+#
+# This file is part of wfdb-swig.
+#
+# wfdb-swig is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wfdb-swig is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with wfdb-swig.  If not, see <http://www.gnu.org/licenses/>.
+
 
 import wfdb, sys
 
@@ -25,7 +54,7 @@ def main(argv):
     if nsig < 1: sys.exit(2)
     s = wfdb.WFDB_SiginfoArray(nsig)
     v = wfdb.WFDB_SampleArray(nsig)
-    if wfdb.wfdbinit(argv[1], a, 1, s.cast(), nsig) != nsig: sys.exit(2)
+    if wfdb.wfdbinit(argv[1], a, 1, s, nsig) != nsig: sys.exit(2)
     if wfdb.sampfreq(None) < 240. or wfdb.sampfreq(None) > 260.:
 	wfdb.setifreq(250.)
     if len(argv) > 2: scmin = wfdb.muvadu(0, argv[2])

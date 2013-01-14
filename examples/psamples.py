@@ -8,7 +8,7 @@ import wfdb, sys
 
 def main(argv):
     siarray = wfdb.WFDB_SiginfoArray(2)
-    if wfdb.isigopen("100s", siarray.cast(), 2) < 2: sys.exit(1)
+    if wfdb.isigopen("100s", siarray, 2) < 2: sys.exit(1)
     v = wfdb.WFDB_SampleArray(2)
     for i in range(0,10):
         if wfdb.getvec(v.cast()) < 0: sys.exit(2)

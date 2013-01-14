@@ -1,10 +1,25 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
-# File: rdann.py       I. Henry   March 28 2005
+# File: rdann.py       I. Henry      28 March 2005
+#                      last revised: 13 January 2013
 #
 # Minimal WFDB sample reader written in Python, based on rdsamp.c
 # 							   
-# Copyright (C) 2005 Isaac C. Henry (ihenry@physionet.org)
+# Copyright (C) 2013 Isaac C. Henry (ihenry42@gmail.org)
+# This file is part of wfdb-swig.
+#
+# wfdb-swig is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wfdb-swig is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with wfdb-swig.  If not, see <http://www.gnu.org/licenses/>.
 
 import getopt, wfdb, sys
 
@@ -34,7 +49,7 @@ def main(argv):
         sys.exit(2)
 
     siarray = wfdb.WFDB_SiginfoArray(nsig)
-    wfdb.isigopen(record, siarray.cast(), nsig)
+    wfdb.isigopen(record, siarray, nsig)
 
     n = 0
     v = wfdb.WFDB_SampleArray(nsig)

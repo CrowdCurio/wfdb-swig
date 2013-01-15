@@ -1,4 +1,4 @@
-from distutils.core import setup, Extension
+from setuptools import setup, Extension, find_packages
 from numpy.distutils.misc_util import get_numpy_include_dirs
 from os import getenv
  
@@ -21,5 +21,6 @@ setup (name = 'wfdb',
        author_email='wfdb-swig@physionet.org',
        url='http://physionet.org/physiotools/wfdb.shtml',
        py_modules = ["wfdb"],
-       ext_modules = [module1])
+       ext_modules = [module1],
+       packages= find_packages())
 

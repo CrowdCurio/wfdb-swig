@@ -9,13 +9,11 @@ all:	python java
 install:
 	-( cd wfdb-python; $(MAKE) install )
 	-( cd wfdb-java;   $(MAKE) install )
-	-( cd wfdb-csharp; $(MAKE) install )
 
 
 check:
 	-( cd wfdb-python; $(MAKE) check )
 	-( cd wfdb-java;   $(MAKE) check )
-	-( cd wfdb-csharp; $(MAKE) check )
 
 python:
 	-( cd wfdb-python; $(MAKE) )
@@ -27,6 +25,5 @@ java:
 clean:
 	-( cd wfdb-python; $(MAKE) clean )
 	-( cd wfdb-java;   $(MAKE) clean )
-	-( cd wfdb-csharp; $(MAKE) clean )
 	rm -f common/*~ *~
 

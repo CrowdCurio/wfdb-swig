@@ -1,19 +1,28 @@
 # file: Makefile	G. Moody		11 March 2006
-
+#			last modified:		16 January 2013
 WFDB_HOME=/opt/wfdb
 WFDB_INCLUDE=$(WFDB_HOME)/include
 JAVAC=javac
+
+# check for 64-bit java
+ifeq ($(shell (java -d64 -version&>/dev/null; echo $$?)), 0)
+WFDB_LIBDIR=$(WFDB_HOME)/lib64
+else
+WFDB_LIBDIR=$(WFDB_HOME)/lib
+endif
+
 
 all:
 	rm -rf build
 	cp -pr conf build
 	cp -p ../AUTHORS ../ChangeLog ../COPYING ../INSTALL ../NEWS ../README \
 	  build
+	mkdir build/wfdb
 	swig -I$(WFDB_HOME)/include -java -package wfdb -outdir build/wfdb \
 	  -o build/wfdb_java_wrap.c ../wfdb.i
 	cd build; autoreconf -i
 	cd build; ./acgen.sh
-	cd build; ./configure JAVAC=$(JAVAC) --build=$(TARGET) --prefix=$(WFDB_HOME) CFLAGS="-O1 -I$(WFDB_INCLUDE) $(CFLAGS)"
+	cd build; ./configure JAVAC=$(JAVAC) CFLAGS="-O1 -I$(WFDB_INCLUDE) $(CFLAGS)" --build=$(TARGET) --prefix=$(WFDB_HOME) --libdir=$(WFDB_LIBDIR);
 	cd build; $(MAKE)
 
 install:

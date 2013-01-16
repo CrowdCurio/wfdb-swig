@@ -3,14 +3,15 @@
 WFDB_HOME=/opt/wfdb
 WFDB_INCLUDE=$(WFDB_HOME)/include
 JAVAC=javac
+WFDB_LIBDIR=$(WFDB_HOME)/lib
+UNAME=$(shell uname)
 
-# check for 64-bit java
+ifeq ($(UNAME), Linux)
+# check for 64-bit java in Linux
 ifeq ($(shell (java -d64 -version&>/dev/null; echo $$?)), 0)
 WFDB_LIBDIR=$(WFDB_HOME)/lib64
-else
-WFDB_LIBDIR=$(WFDB_HOME)/lib
 endif
-
+endif
 
 all:
 	rm -rf build

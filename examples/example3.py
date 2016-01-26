@@ -1,34 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
-# File: example3.py       I. Henry      30 March 2005
-#                         last revised: 13 January 2013
+# File: example3.py       I. Henry   March 30 2005
 #
-# Example 3: An Annotation Printer
-#
-# This program prints annotations in readable form. Its first argument
-# is an annotator name, and its second argument is a record name.
-#
-# This is a Python translation of example3.c from the WFDB
-# Programmer's Guide
-# 
-# http://www.physionet.org/physiotools/wpg/wpg_48.htm#Example-3
-#							   
-# Copyright (C) 2013 Isaac C. Henry (ihenry42@gmail.org)
-#
-# This file is part of wfdb-swig.
-#
-# wfdb-swig is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# wfdb-swig is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with wfdb-swig.  If not, see <http://www.gnu.org/licenses/>.
+# Python translation of example2.c from the WFDB Programmer's Guide
+# 							   
+# Copyright (C) 2005 Isaac C. Henry (ihenry@physionet.org)
 
 import wfdb, sys
 

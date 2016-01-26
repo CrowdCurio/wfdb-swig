@@ -1,41 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
-# File: example9.py       I. Henry      30 March 2005
-#                         last revised: 13 January 2013
+# File: example9.py       I. Henry   March 30 2005
 #
-# Example 9: A Signal Averager
-#
-# The following program is considerably more complex than the previous
-# examples in this chapter. It reads an annotation file (for which the
-# annotator name is specified in its first argument, and the record
-# name in the second argument) and selects beats of a specified type
-# to be averaged. The program selects segments of the signals that are
-# within 50 milliseconds of the time of the specified beat
-# annotations, subtracts a baseline estimate from each sample, and
-# calculates an average waveform (by default, the average normal QRS
-# complex).
-#
-# This is Python translation of example9.c from the WFDB Programmer's
-# Guide
-#
-# http://www.physionet.org/physiotools/wpg/wpg_54.htm#Example-9
-#
-# Copyright (C) 2013 Isaac C. Henry (ihenry42@gmail.org)
-#
-# This file is part of wfdb-swig.
-#
-# wfdb-swig is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# wfdb-swig is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with wfdb-swig.  If not, see <http://www.gnu.org/licenses/>.
+# Python translation of example9.c from the WFDB Programmer's Guide
+# 						   
+# Copyright (C) 2005 Isaac C. Henry (ihenry@physionet.org)
 
 
 import wfdb, sys
@@ -53,10 +22,10 @@ def main(argv):
     nsig = wfdb.isigopen(argv[2], None, 0)
     if nsig < 1: sys.exit(2)
     s = wfdb.WFDB_SiginfoArray(nsig)
-    v = wfdb.intArray(nsig)
-    vb = wfdb.intArray(nsig)
+    v = wfdb.WFDB_SampleArray(nsig)
+    vb = wfdb.WFDB_SampleArray(nsig)
     sum = [None] * nsig
-    if wfdb.wfdbinit(argv[2], a, 1, s, nsig) != nsig: sys.exit(3)
+    if wfdb.wfdbinit(argv[2], a, 1, s.cast(), nsig) != nsig: sys.exit(3)
     hwindow = wfdb.strtim(".05")
     window = 2*hwindow + 1
     for i in range(nsig):
@@ -81,9 +50,9 @@ def main(argv):
     while 1:        
         if annot.anntyp == btype:
             wfdb.isigsettime(annot.time - hwindow - 1)
-            wfdb.getvec(vb)
+            wfdb.getvec(vb.cast())
             j=0
-            while j < window and wfdb.getvec(v) > 0:
+            while j < window and wfdb.getvec(v.cast()) > 0:
                 for i in range(nsig):
                     sum[i][j] += v[i] - vb[i]
                 j += 1

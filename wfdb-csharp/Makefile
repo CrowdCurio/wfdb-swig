@@ -2,6 +2,7 @@
 
 all:
 	cp -pr conf build
+	cp -p ../common/* build
 	cp -p ../AUTHORS ../ChangeLog ../COPYING ../INSTALL ../NEWS ../README \
 	  build
 	swig -I/usr/include -csharp -namespace Wfdb -dllimport wfdbcsharpglue \

@@ -1,5 +1,5 @@
 
-AC_INIT(wfdb-csharp, 10.4)
+AC_INIT(wfdb-csharp, 10.5)
 AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE
 

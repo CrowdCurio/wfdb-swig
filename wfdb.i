@@ -37,7 +37,7 @@ _______________________________________________________________________________
 %module(directors="1") wfdb
 
 /* Structure definitions */
-typedef struct  {
+typedef struct WFDB_Siginfo {
     char *fname;
     char *desc;
     char *units;
@@ -53,9 +53,10 @@ typedef struct  {
     long nsamp;
     int cksum;
 } WFDB_Siginfo;
+
 %ignore WFDB_siginfo;
 
-typedef struct {
+typedef struct WFDB_Calinfo {
     double low;
     double high;
     double scale;
@@ -66,14 +67,15 @@ typedef struct {
 
 %ignore WFDB_calinfo;
 
-typedef struct  {
-    char *name;    
+typedef struct WFDB_Anninfo {
+    char *name;	
     int stat;
 } WFDB_Anninfo;
+
 %ignore WFDB_anninfo;
 
 
-typedef struct {
+typedef struct WFDB_Annotation {
     WFDB_Time time;
     int anntyp;
     int subtyp;
@@ -81,13 +83,14 @@ typedef struct {
     int num;
     char *aux;
 } WFDB_Annotation;
+
 %feature("director") WFDB_Annotation;
+
 %ignore WFDB_ann;
 
 %include carrays.i
 
-%array_class(int, intArray);
-%array_class(WFDB_Sample,    WFDB_SampleArray);
+%array_class(WFDB_Sample,     WFDB_SampleArray);
 %array_class(WFDB_Siginfo,    WFDB_SiginfoArray);
 %array_class(WFDB_Anninfo,    WFDB_AnninfoArray);
 %array_class(WFDB_Annotation, WFDB_AnnotationArray);

@@ -40,6 +40,7 @@ the documentation in each subdirectory for specific instructions:
 
 	wfdb-csharp/INSTALL  (for C# and other .NET languages)
 	wfdb-java/INSTALL
+	wfdb-perl/INSTALL
 	wfdb-python/INSTALL
 
 See README in this directory for additional information about the WFDB

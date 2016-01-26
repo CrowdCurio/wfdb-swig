@@ -2,7 +2,7 @@
 #			Last revised:		 6 April 2006
 
 
-WFDB_HOME=/opt/wfdb
+WFDB_HOME=/usr/local
 WFDB_INCLUDE=$(WFDB_HOME)/include
 WFDB_LIBPATH=$(WFDB_HOME)/lib
 

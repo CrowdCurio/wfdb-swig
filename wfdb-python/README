@@ -1,5 +1,5 @@
-file: README		I. Henry and G. Moody	    August 2005
-			Last revised:		13 January 2013
+file: README		I. Henry and G. Moody	 August 2005
+			Last revised:		10 March 2006
 
 Name: wfdb-python -- WFDB wrappers for Python
 
@@ -15,7 +15,7 @@ functions from Python programs.
 
 Authors:
 
-Isaac Henry (ihenry42@gmail.com), George Moody (george@physionet.org)
+Isaac Henry (ihenry@physionet.org), George Moody (george@physionet.org)
 
 Background literature:
 
@@ -64,15 +64,15 @@ file with the annotator name `aha'.
       if len(argv) < 2:
           print "usage:", argv[0], "record"
           sys.exit(1)
-      a = Anninfo()
+      a = an[0]
       a.name = "atr"
       a.stat = wfdb.WFDB_READ
       an[0] = a
-      a = Anninfo()
+      a = an[1]
       a.name = "aha"
       a.stat = wfdb.WFDB_AHA_WRITE
       an[1] = a
-      if wfdb.annopen(argv[1], an, 2) < 0: sys.exit(2)
+      if wfdb.annopen(argv[1], an.cast(), 2) < 0: sys.exit(2)
       while 1:
           if not (wfdb.getann(0, annot) == 0 and wfdb.putann(0,annot) == 0): break
       wfdb.wfdbquit()
@@ -97,12 +97,15 @@ with pointers to the native C structures in memory.  These classes are often
 refereed to as "shadow classes".
 
 In addition, there are several 'Array' special classes, which are used in place
-of pointer arrays in C.  
+of pointer arrays in C.  Note that the 'cast' method must be used when passing
+an 'Array' object to a method, as in
+
+  wfdb.annopen(argv[1], an.cast(), 2)
 
 Special care must be taken when manipulating the members of an array. As shown
 in the example, you must first obtain a shadow class object for an item,
   
-  a = Anninfo()
+  a = an[0]
 
 which can then be used to get or set structure members. 
 
@@ -120,7 +123,6 @@ A ready-to-run copy of this program is available as ../examples/example2.py.
 To run it, type
 	python ../examples/example2.py
 or (if python is installed as /usr/bin/python):
-	../examples/example2.py
-
-The ../examples directory also contains translations into Python of the other
+	../examples/example2.pl
+The ../examples directory also contains translations into Perl 5 of the other
 examples from the WFDB Programmer's Guide.

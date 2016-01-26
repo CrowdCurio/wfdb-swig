@@ -109,12 +109,14 @@ import_array();
 
 %pythoncode %{
 
-def input_sigal_open(record):
+def isigopen(record):
   nsig = _wfdb.isigopen(record, None, 0)  
   if nsig > 0:
       siArray = WFDB_SiginfoArray(nsig)
       _wfdb.isigopen(record, siArray.cast(), nsig)
       siArray.nsig = nsig
+      set_nvsig(nsig)
+      set_nsamps(siArray[0].nsamp)
   else:
       siArray = None
   return siArray

@@ -1,3 +1,9 @@
+wfdb-swig 10.5.0 (2011-07-12  <george@mit.edu>):
+
+  based on Isaac Henry's wfdb-swig r24 (2011-03-01) from code.google.com
+  Java, perl, and python wrappers work on 64-bit Linux and Mac OS X
+  C# wrappers need work
+
 wfdb-swig 10.4.1 (2006-04-06  <george@mit.edu>):
 
   'make' from top-level Makefile now works

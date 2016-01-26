@@ -1,4 +1,4 @@
-# file: Makefile	G. Moody	12 March 2006
+# file: Makefile	G. Moody	12 July 2011
 #
 # Makefile for building the example Java programs
 
@@ -10,11 +10,14 @@ SOURCES=example1.java example2.java example3.java example4.java example5.java \
 # files.  The difference is that standalone programs contain opcodes that your
 # CPU can execute directly, and .class files contain Java bytecodes that must
 # be interpreted at run time by a Java virtual machine (JVM).
-#
-# If you wish to create standalone programs with gcj, uncomment the next line.
-PROGRAMS = $(SOURCES:.java=)
-# Otherwise, uncomment the next line to create .class files with javac.
-# PROGRAMS = $(SOURCES:.java=.class)
+
+# Uncomment one of the next two lines:
+JAVAC=javac
+# JAVAC=gcj
+
+GCJPROGS = $(SOURCES:.java=)
+JAVACPROGS = $(SOURCES:.java=.class)
+
 # If you create .class files, they can be run using the 'jw' shell script
 # in this directory, like this:
 #	./jw example1
@@ -22,7 +25,8 @@ PROGRAMS = $(SOURCES:.java=)
 
 WFDBJAR=/usr/share/java/wfdb.jar
 
-all:	 $(PROGRAMS)
+all:
+	if [ $(JAVAC) = gcj ]; then $(MAKE) $(GCJPROGS); else $(MAKE) $(JAVACPROGS); fi
 
 %.class : %.java
 	javac -cp $(WFDBJAR):. $<
@@ -32,5 +36,5 @@ all:	 $(PROGRAMS)
 	-mv a.out $@
 
 clean:
-	rm -f $(PROGRAMS) *~
+	rm -f $(GCJPROGS) $(JAVACPROGS) *~
 

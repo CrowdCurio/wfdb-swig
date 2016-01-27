@@ -36,58 +36,6 @@ _______________________________________________________________________________
 
 %module(directors="1") wfdb
 
-/* Structure definitions */
-typedef struct WFDB_Siginfo {
-    char *fname;
-    char *desc;
-    char *units;
-    WFDB_Gain gain;
-    WFDB_Sample initval;
-    WFDB_Group group;
-    int fmt;
-    int spf;
-    int bsize;
-    int adcres;
-    int adczero;
-    int baseline;
-    long nsamp;
-    int cksum;
-} WFDB_Siginfo;
-
-%ignore WFDB_siginfo;
-
-typedef struct WFDB_Calinfo {
-    double low;
-    double high;
-    double scale;
-    char *sigtype;
-    char *units;
-    int caltype;
-} WFDB_Calinfo;
-
-%ignore WFDB_calinfo;
-
-typedef struct WFDB_Anninfo {
-    char *name;	
-    int stat;
-} WFDB_Anninfo;
-
-%ignore WFDB_anninfo;
-
-
-typedef struct WFDB_Annotation {
-    WFDB_Time time;
-    int anntyp;
-    int subtyp;
-    int chan;
-    int num;
-    char *aux;
-} WFDB_Annotation;
-
-%feature("director") WFDB_Annotation;
-
-%ignore WFDB_ann;
-
 %include carrays.i
 
 %array_class(WFDB_Sample,     WFDB_SampleArray);

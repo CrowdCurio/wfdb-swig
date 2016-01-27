@@ -107,20 +107,3 @@ import_array();
 %apply (double *DOUBLE_ARRAY2, int DIM2) { (double *vector, int nsamples) }
 
 
-%pythoncode %{
-
-def isigopen(record):
-  nsig = _wfdb.isigopen(record, None, 0)  
-  if nsig > 0:
-      siArray = WFDB_SiginfoArray(nsig)
-      _wfdb.isigopen(record, siArray.cast(), nsig)
-      siArray.nsig = nsig
-      set_nvsig(nsig)
-      set_nsamps(siArray[0].nsamp)
-  else:
-      siArray = None
-  return siArray
-
-%}
-
-
